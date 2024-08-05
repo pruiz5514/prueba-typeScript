@@ -1,4 +1,5 @@
 import { PostsController } from '../../Controllers/Posts.Controller';
+import { QualityController } from '../../Controllers/Quality.Controller';
 import { IPost } from '../../Models/IPost';
 import { Card } from '../Card/Card';
 import './Home.scss'
@@ -25,9 +26,14 @@ export const Home = ():HTMLElement => {
 async function showPosts(container:HTMLElement) {
     const url = "https://api-posts.codificando.xyz/";
     const postController = new PostsController(url);
+    const qualityController = new QualityController("https://api.languagetoolplus.com/v2/check");
     try{
         const posts = await postController.getPost("posts");
-        posts.forEach((post:IPost)=>{
+        posts.forEach(async(post:IPost)=>{
+            const text = (post.body).split(" ");
+            console.log(text);
+            const quality = await qualityController.postQuality(`?text=${post.body}&language=es`);
+            console.log((quality.matches).length);
             container.append(Card(post));
         })
     }catch(e){
