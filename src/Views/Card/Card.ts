@@ -3,7 +3,7 @@ import './Card.scss'
 import { IPost } from "../../Models/IPost";
 
 export const Card = (props:IPost) => {
-    let { id, postByUser, title, platform, approvalPercentage, multimediaUrl } = props;
+    let { id, postByUser, title, platform, approvalPercentage, multimediaUrl, body } = props;
 
     const article = document.createElement("article") as HTMLElement;
     const image = document.createElement("img") as HTMLImageElement;
@@ -11,6 +11,7 @@ export const Card = (props:IPost) => {
     const h3 = document.createElement("h3") as HTMLHeadElement;
     const aprovalP = document.createElement("p") as HTMLParagraphElement;
     const plataformP = document.createElement("p") as HTMLParagraphElement;
+    const bodyP = document.createElement("p") as HTMLParagraphElement;
 
 
     const viewMoreContainer = document.createElement("div") as HTMLDivElement;
@@ -33,12 +34,14 @@ export const Card = (props:IPost) => {
     plataformP.innerText = `Plataforma: ${platform}`;
     aprovalP.innerText = `Apobacion: ${approvalPercentage} %`
 
+    bodyP.innerText = body
+
     viewMore.innerText = "Ver más";
     viewMore.setAttribute("viewMore-id", String(id));
 
 
     viewMoreContainer.append(viewMore)
-    infoContainer.append(h3,plataformP, aprovalP);
+    infoContainer.append(h3,plataformP, aprovalP, body);
     article.append(image, infoContainer, viewMoreContainer, deleteButton);
     return article;
 }
