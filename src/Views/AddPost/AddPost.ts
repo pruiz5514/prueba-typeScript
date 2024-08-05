@@ -1,3 +1,5 @@
+import { PostsController } from '../../Controllers/Posts.Controller';
+import { IPost } from '../../Models/IPost';
 import './AddPost.scss';
 
 export const AddPost = () => {
@@ -13,6 +15,12 @@ export const AddPost = () => {
 
     const form = document.createElement("form") as HTMLFormElement;
     form.className = "addPost-form";
+
+    const idAuthorInput = document.createElement("input") as HTMLInputElement;
+    idAuthorInput.type = "number";
+    idAuthorInput.className = "addPost-input";
+    idAuthorInput.placeholder = "Id del autor";
+    idAuthorInput.required = true;
 
     const titleInput = document.createElement("input") as HTMLInputElement;
     titleInput.type = "text";
@@ -56,6 +64,36 @@ export const AddPost = () => {
     main.append(section);
 
     const url = "https://api-posts.codificando.xyz/";
+
+    form.addEventListener("submit", async (event:Event)=>{
+        event.preventDefault();
+
+        const newPost:IPost = {
+            title: titleInput.value,
+            body: message.value,
+            creationDate: "2024-08-05",
+            creator: "Prueba 333", 
+            estimatedPublicationDate: "2024-08-30",
+            status:"pending",
+            approvalPercentage: 75,
+            corrections: "Ninguna",
+            platform: plataformInput.value, 
+            postUrl: postUrlInput.value,
+            multimediaUrl: imgUrlInput.value            
+        }
+
+        const postController = new PostsController(url);
+
+        try{
+            const addPost = await postController.createPost("posts",newPost);
+            console.log(addPost);
+            
+        }catch(e){
+            console.log(e);
+            
+        }
+
+    })
 
     return main
 }
