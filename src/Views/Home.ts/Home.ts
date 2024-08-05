@@ -1,4 +1,6 @@
 import { PostsController } from '../../Controllers/Posts.Controller';
+import { IPost } from '../../Models/IPost';
+import { Card } from '../Card/Card';
 import './Home.scss'
 
 export const Home = ():HTMLElement => {
@@ -13,16 +15,24 @@ export const Home = ():HTMLElement => {
     const cardsContainer = document.createElement("section") as HTMLElement;
     cardsContainer.className = "cardsContainer-home";
 
-    const url = "https://api-posts.codificando.xyz/";
-    const email = sessionStorage.getItem("email") as string;
-    console.log(email);
-    
-
-    const postController = new PostsController(url);
-    const posts = postController.getPost("posts", email);
-    console.log(posts);
+    showPosts(cardsContainer);
 
     main.append(h1, cardsContainer);
 
     return main;
+}
+
+async function showPosts(container:HTMLElement) {
+    const url = "https://api-posts.codificando.xyz/";
+    const postController = new PostsController(url);
+    try{
+        const posts = await postController.getPost("posts");
+        posts.forEach((post:IPost)=>{
+            container.append(Card(post));
+        })
+    }catch(e){
+        console.log(e);
+        
+    }
+    
 }

@@ -7,18 +7,16 @@ export class PostsController{
         this.url = url;
     }
 
-    async getPost(endPoint:string,email:string):Promise<IPost>{
+    async getPost(endPoint:string):Promise<IPost[]>{
         console.log();
         
-        const response = await fetch(`${this.url}${endPoint}`,{
-            mode: 'no-cors',
-            method: 'GET',
-            headers: {
-                'x-user-email': email
-            }
-        })
+        const response = await fetch(`${this.url}${endPoint}`)
 
-        console.log(response.status);
+        console.log("Get post status: " + response.status);
+        
+        if(response.status !== 200){
+            throw new Error ("No se pueden mostrar los post")
+        }
         
         const data = await response.json();
 
