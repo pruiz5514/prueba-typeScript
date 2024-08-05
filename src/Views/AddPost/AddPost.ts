@@ -1,11 +1,16 @@
 import { PostsController } from '../../Controllers/Posts.Controller';
 import { IPost } from '../../Models/IPost';
+import { Spinner } from '../Spinner/Spinner';
 import './AddPost.scss';
 
 export const AddPost = () => {
 
     const main = document.createElement("main") as HTMLElement;
     main.className = "addPost-main";
+    
+    const spinner = document.createElement("div") as HTMLElement;
+    spinner.append(Spinner())
+
     const section = document.createElement("section") as HTMLElement;
     section.className = "addPost-section";
 
@@ -61,7 +66,11 @@ export const AddPost = () => {
 
 
 
-    main.append(section);
+    main.append(spinner,section);
+
+    setTimeout(() => {
+        spinner.style.display = "none";
+    }, 500)
 
     const url = "https://api-posts.codificando.xyz/";
 

@@ -2,8 +2,8 @@ import './Card.scss'
 
 import { IPost } from "../../Models/IPost";
 
-export const Card = (props:IPost) => {
-    let { id, postByUser, title, platform, approvalPercentage, multimediaUrl, body } = props;
+export const Card = (props:IPost, quality:number) => {
+    let { id, title, platform, approvalPercentage, multimediaUrl, body } = props;
 
     const article = document.createElement("article") as HTMLElement;
     const image = document.createElement("img") as HTMLImageElement;
@@ -12,6 +12,7 @@ export const Card = (props:IPost) => {
     const aprovalP = document.createElement("p") as HTMLParagraphElement;
     const plataformP = document.createElement("p") as HTMLParagraphElement;
     const bodyP = document.createElement("p") as HTMLParagraphElement;
+    const qualityP = document.createElement("p") as HTMLParagraphElement;
 
 
     const viewMoreContainer = document.createElement("div") as HTMLDivElement;
@@ -33,15 +34,26 @@ export const Card = (props:IPost) => {
 
     plataformP.innerText = `Plataforma: ${platform}`;
     aprovalP.innerText = `Apobacion: ${approvalPercentage} %`
-
     bodyP.innerText = body
 
     viewMore.innerText = "Ver más";
     viewMore.setAttribute("viewMore-id", String(id));
 
 
+    if(quality>5){
+        qualityP.style.color = "red";
+    }else{
+        qualityP.style.color = "green";
+    }
+    qualityP.innerText = `Porcentaje de error ortografico: ${String(quality.toFixed(1))} %`;
+
     viewMoreContainer.append(viewMore)
-    infoContainer.append(h3,plataformP, aprovalP, body);
+    infoContainer.append(h3,plataformP, body, qualityP);
     article.append(image, infoContainer, viewMoreContainer, deleteButton);
+
+    viewMore.addEventListener("click",()=>{
+        window.location.hash = "#/view-more"
+    })
+
     return article;
 }
