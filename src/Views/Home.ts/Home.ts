@@ -2,12 +2,16 @@ import { PostsController } from '../../Controllers/Posts.Controller';
 import { QualityController } from '../../Controllers/Quality.Controller';
 import { IPost } from '../../Models/IPost';
 import { Card } from '../Card/Card';
+import { Spinner } from '../Spinner/Spinner';
 import './Home.scss'
 
 export const Home = ():HTMLElement => {
 
     const main = document.createElement("main") as HTMLElement;
     main.className = "home-main";
+
+    const spinner = document.createElement("div") as HTMLElement;
+    spinner.append(Spinner())
 
     const h1 = document.createElement("h1") as HTMLHeadElement;
     h1.className = "home-tilte";
@@ -16,9 +20,13 @@ export const Home = ():HTMLElement => {
     const cardsContainer = document.createElement("section") as HTMLElement;
     cardsContainer.className = "cardsContainer-home";
 
+    
     showPosts(cardsContainer);
+    setTimeout(() => {
+        spinner.style.display = "none";
+    }, 500)
 
-    main.append(h1, cardsContainer);
+    main.append(spinner, h1, cardsContainer);
 
     return main;
 }
