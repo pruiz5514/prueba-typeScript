@@ -38,11 +38,15 @@ async function showPosts(container:HTMLElement) {
     try{
         const posts = await postController.getPost("posts");
         posts.forEach(async(post:IPost)=>{
-            // const text = (post.body).split(" ");
-            // console.log(text);
-            // const quality = await qualityController.postQuality(`?text=${post.body}&language=es`);
-            // console.log((quality.matches).length);
-            container.append(Card(post));
+            const text = (post.body).split(" ");
+            const wordQuantity = text.length;
+
+            const quality = await qualityController.postQuality(`?text=${post.body}&language=es`);
+            const wrongWords = (quality.matches).length;
+
+            const qualityPercentage = (100*wrongWords)/wordQuantity;
+
+            container.append(Card(post,qualityPercentage));
         })
     }catch(e){
         console.log(e);
