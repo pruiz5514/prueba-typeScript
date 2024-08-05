@@ -50,5 +50,10 @@ export const Card = (props:IPost, quality:number) => {
     viewMoreContainer.append(viewMore)
     infoContainer.append(h3,plataformP, body, qualityP);
     article.append(image, infoContainer, viewMoreContainer, deleteButton);
+
+    viewMore.addEventListener("click",()=>{
+        window.location.hash = "#/view-more"
+    })
+
     return article;
 }
