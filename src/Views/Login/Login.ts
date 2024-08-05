@@ -54,6 +54,7 @@ export const Login = (): HTMLElement => {
         try{
             const login = await loginController.login("auth/login", user);
             console.log(login.message);
+            sessionStorage.setItem("email",user.email);
             window.location.hash = "#/home";
         }
         catch(e){
