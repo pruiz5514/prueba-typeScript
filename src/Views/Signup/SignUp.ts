@@ -25,17 +25,22 @@ export const SignUp = (): HTMLElement => {
     passwordInput.placeholder = "Contraseña";
     passwordInput.type = "password";
 
+    const confirmPassworsInput = document.createElement("input") as HTMLInputElement;
+    confirmPassworsInput.className = "signUp-input";
+    confirmPassworsInput.placeholder = "Confirmar contraseña";
+    confirmPassworsInput.type = "password";
+
     const button = document.createElement("button") as HTMLButtonElement;
-    button.innerText = "Iniciar sesión";
+    button.innerText = "Crear cuenta";
     button.className = "signUp-button";
     button.type = "submit";
 
-    form.append(emailInput, passwordInput, button);
+    form.append(emailInput, passwordInput,confirmPassworsInput, button);
 
     const a = document.createElement("a") as HTMLAnchorElement;
-    a.innerText = "Crear una cuenta";
-    a.href = "#/signUp";
-    a.className = "signUp-a"
+    a.innerText = "Ya tengo una cuenta";
+    a.href = "";
+    a.className = "login-a"
 
     section.append(h1, form, a);
     main.append(section);
@@ -43,26 +48,26 @@ export const SignUp = (): HTMLElement => {
     const url = "https://api-posts.codificando.xyz/";
     const loginController = new LoginController(url);
 
-    form.addEventListener("submit",async (event:Event)=>{
-        event.preventDefault();
+    // form.addEventListener("submit",async (event:Event)=>{
+    //     event.preventDefault();
         
-        const user:ILogin = {
-            email: emailInput.value,
-            password: passwordInput.value
-        }
+    //     const user:ILogin = {
+    //         email: emailInput.value,
+    //         password: passwordInput.value
+    //     }
 
-        try{
-            const login = await loginController.login("auth/login", user);
-            console.log(login.message);
-            window.location.hash = "#/home";
-            sessionStorage.setItem("email", user.email);
-        }
-        catch(e){
-            console.log(e);
-        }
+    //     try{
+    //         const login = await loginController.login("auth/login", user);
+    //         console.log(login.message);
+    //         window.location.hash = "#/home";
+    //         sessionStorage.setItem("email", user.email);
+    //     }
+    //     catch(e){
+    //         console.log(e);
+    //     }
         
         
-    })
+    // })
 
     return main
 }
