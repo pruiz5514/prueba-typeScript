@@ -1,5 +1,5 @@
 import { Login } from "./Views/Login/Login";
-import { SignUp } from "./Views/Signup/SignUp";
+import { SignUp } from "./Views/SignUp/SignUp";
 
 export const Router = ()=>{
     let{hash} = location;

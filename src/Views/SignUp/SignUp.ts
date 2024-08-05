@@ -1,3 +1,4 @@
+import { errorAlert } from '../../Controllers/Alerts';
 import { LoginController } from '../../Controllers/Login.Controller';
 import { ILogin } from '../../Models/ILogin';
 import './SignUp.scss';
@@ -48,26 +49,29 @@ export const SignUp = (): HTMLElement => {
     const url = "https://api-posts.codificando.xyz/";
     const loginController = new LoginController(url);
 
-    // form.addEventListener("submit",async (event:Event)=>{
-    //     event.preventDefault();
-        
-    //     const user:ILogin = {
-    //         email: emailInput.value,
-    //         password: passwordInput.value
-    //     }
+    form.addEventListener("submit",async (event:Event)=>{
+        event.preventDefault();
+        if(passwordInput.value === confirmPassworsInput.value){
 
-    //     try{
-    //         const login = await loginController.login("auth/login", user);
-    //         console.log(login.message);
-    //         window.location.hash = "#/home";
-    //         sessionStorage.setItem("email", user.email);
-    //     }
-    //     catch(e){
-    //         console.log(e);
-    //     }
-        
-        
-    // })
+            const user:ILogin = {
+                email: emailInput.value,
+                password: passwordInput.value
+            }
+    
+            try{
+                const signUp = await loginController.login("users/register", user);
+                console.log(signUp);
+                // window.location.hash = "#/home";
+                // sessionStorage.setItem("email", user.email);
+            }
+            catch(e){
+                console.log(e);
+            } 
+        }
+        else{
+            errorAlert("Las contraseñas no son iguales");
+        }
+    })
 
     return main
 }

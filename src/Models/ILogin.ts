@@ -4,5 +4,11 @@ export interface ILogin{
 }
 
 export interface ILoginResponse{
-    "message": string
+    message: string;
+}
+
+export interface ISignUpResponse{
+    email:    string;
+    password: string;
+    id:       number;
 }
