@@ -1,3 +1,4 @@
+import { Header } from "./Views/Header/Header";
 import { Login } from "./Views/Login/Login";
 import { SignUp } from "./Views/SignUp/SignUp";
 
@@ -14,6 +15,6 @@ export const Router = ()=>{
         divRoot.append(SignUp())
     }
     else if (hash === "#/home"){
-        
+        divRoot.append(Header())
     }
 }
