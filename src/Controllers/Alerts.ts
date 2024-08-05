@@ -8,3 +8,12 @@ export function errorAlert(text:string){
         confirmButtonText: 'Ok'
       })
 }
+
+export function successAlert(text:string){
+  Swal.fire({
+      title: 'Exito!',
+      text: text,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    })
+}

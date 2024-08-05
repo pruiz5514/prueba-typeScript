@@ -1,5 +1,5 @@
 import { ILogin, ILoginResponse, ISignUpResponse } from "../Models/ILogin";
-import { errorAlert } from "./Alerts";
+import { errorAlert, successAlert } from "./Alerts";
 
 export class LoginController{
     url: string;
@@ -21,7 +21,7 @@ export class LoginController{
 
         console.log("Login status: "+ response.status);
         if(data.message !== "Login successful"){
-            errorAlert("Correo electronico o contraseña erroneos")
+            // errorAlert("Correo electronico o contraseña erroneos")
             throw new Error("Login: Correo electronico o contraseña erroneos")
         }
         return data;
@@ -38,17 +38,14 @@ export class LoginController{
 
         const data = await response.json();
 
-        console.log(response.status);
+        console.log("Sign upW status: " + response.status);
         if(response.status !== 201){
-            errorAlert("Correo ya se encuentra registrado")
-            throw new Error("Sign Up: Correo ya se encuentra registrado")
+            errorAlert("Correo ya se encuentra registrado");
+            throw new Error("Sign Up: Correo ya se encuentra registrado");
         }
-        
-        // console.log("Login status: " + response.status);
-        // if(data.message !== "Login successful"){
-        //     errorAlert("Correo electronico o contraseña erroneos")
-        //     throw new Error("Login: Correo electronico o contraseña erroneos")
-        // }
+        else{
+            successAlert("Se creo usuario exitosamente");
+        }
         return data;
     }
 }

@@ -59,17 +59,19 @@ export const SignUp = (): HTMLElement => {
             }
     
             try{
-                const signUp = await loginController.login("users/register", user);
+                const signUp = await loginController.signUp("users/register", user);
                 console.log(signUp);
-                // window.location.hash = "#/home";
-                // sessionStorage.setItem("email", user.email);
+                form.reset();
+                window.location.hash = "";
             }
             catch(e){
                 console.log(e);
+                form.reset();
             } 
         }
         else{
             errorAlert("Las contraseñas no son iguales");
+            form.reset();
         }
     })
 
