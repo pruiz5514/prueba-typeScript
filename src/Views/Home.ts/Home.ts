@@ -1,3 +1,4 @@
+import { PostsController } from '../../Controllers/Posts.Controller';
 import './Home.scss'
 
 export const Home = ():HTMLElement => {
@@ -12,6 +13,14 @@ export const Home = ():HTMLElement => {
     const cardsContainer = document.createElement("section") as HTMLElement;
     cardsContainer.className = "cardsContainer-home";
 
+    const url = "https://api-posts.codificando.xyz/";
+    const email = sessionStorage.getItem("email") as string;
+    console.log(email);
+    
+
+    const postController = new PostsController(url);
+    const posts = postController.getPost("posts", email);
+    console.log(posts);
 
     main.append(h1, cardsContainer);
 

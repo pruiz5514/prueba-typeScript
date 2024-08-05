@@ -1,3 +1,4 @@
+import { AddPost } from "./Views/AddPost/AddPost";
 import { Header } from "./Views/Header/Header";
 import { Home } from "./Views/Home.ts/Home";
 import { Login } from "./Views/Login/Login";
@@ -17,5 +18,8 @@ export const Router = ()=>{
     }
     else if (hash === "#/home"){
         divRoot.append(Header(),Home())
+    }
+    else if (hash === "#/agregar-post"){
+        divRoot.append(Header(),AddPost())
     }
 }
